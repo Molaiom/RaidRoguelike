@@ -5,19 +5,19 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
 	[SerializeField] private InputActionAsset InputActions;
-	[SerializeField] private float movementSpeed = 10;
-	[SerializeField] private float turningSpeed = 10;
+	[SerializeField][Range(0, 100)] private float movementSpeed = 40;
+	[SerializeField][Range(0, 100)] private float turningSpeed = 10;
 
 	[Header("Camera attributes")]
 	[Tooltip("The object the camera will follow and rotate with")]
 	[SerializeField] private Transform shoulderTransform;
 	[SerializeField] private float cameraSensitivity = 0.2f;
-	[SerializeField] private float maxCameraAngle = 70;
+	[SerializeField][Range(70, 90)] private float maxCameraAngle = 70;
 
 	[Header("Jump / ground check attributes")]
-	[SerializeField] private float jumpForce = 7;
+	[SerializeField][Range(0,200)] private float jumpForce = 50;
 	[Tooltip("How fast will this character fall")]
-	[SerializeField] private float smoothFallForce = 20f;
+	[SerializeField] private float smoothFallForce = 55f;
 	[SerializeField] private float groundCheckOffset = 0.65f;
 	[SerializeField] private float groundCheckRadius = 0.45f;
 	[SerializeField] private LayerMask groundCheckLayers;
@@ -76,20 +76,31 @@ public class PlayerMovement : MonoBehaviour
 
 	private void MoveCharacter()
 	{
-		if (moveInputValue.magnitude <= 0)
-			return;
+		Vector3 moveDirection = Vector3.zero;
 
-		// Moves relative to the shoulder/camera rotation
-		Vector3 moveDirection = moveInputValue.y * shoulderTransform.forward + moveInputValue.x * shoulderTransform.right;
+		// Move the player when an input is pressed
+		if (moveInputValue.magnitude > 0)
+		{
+			moveDirection = (moveInputValue.y * shoulderTransform.forward + moveInputValue.x * shoulderTransform.right).normalized;
+			RotateCharacter(ref moveDirection);
+		}
+
+		// Reduce the player speed when no input is pressed to prevent "sliding"
+		else if (moveInputValue.magnitude <= 0)
+		{
+			if (isGrounded)
+				moveDirection = -characterRigidbody.linearVelocity;
+			else
+				return;
+		}
+
 		moveDirection.y = 0;
-		moveDirection.Normalize();
-		characterRigidbody.MovePosition(characterRigidbody.position + (moveDirection * movementSpeed * Time.deltaTime));
-
-		RotateCharacter(ref moveDirection);
+		characterRigidbody.AddForce(moveDirection * movementSpeed * Time.deltaTime, ForceMode.VelocityChange);		
 	}
 
 	private void RotateCharacter(ref Vector3 rotateDirection)
 	{
+		rotateDirection.y = 0;
 		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(rotateDirection, Vector3.up), turningSpeed * Time.deltaTime);
 	}
 

@@ -948,13 +948,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   InputActions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
-  movementSpeed: 10
+  movementSpeed: 40
   turningSpeed: 10
   shoulderTransform: {fileID: 271284292}
   cameraSensitivity: 0.2
   maxCameraAngle: 70
-  jumpForce: 7
-  smoothFallForce: 20
+  jumpForce: 50
+  smoothFallForce: 55
   groundCheckOffset: 0.65
   groundCheckRadius: 0.45
   groundCheckLayers:
@@ -968,9 +968,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561917683}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 1
-  m_AngularDamping: 0.05
+  m_Mass: 3
+  m_LinearDamping: 5
+  m_AngularDamping: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
