@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
 	[SerializeField] private InputActionAsset InputActions;
 	[SerializeField][Range(0, 100)] private float movementSpeed = 40;
@@ -15,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField][Range(70, 90)] private float maxCameraAngle = 70;
 
 	[Header("Jump / ground check attributes")]
-	[SerializeField][Range(0,200)] private float jumpForce = 50;
+	[SerializeField][Range(0, 200)] private float jumpForce = 50;
 	[Tooltip("How fast will this character fall")]
 	[SerializeField] private float smoothFallForce = 55f;
 	[SerializeField] private float groundCheckOffset = 0.65f;
@@ -36,11 +37,11 @@ public class PlayerMovement : MonoBehaviour
 	private void Awake()
 	{
 		characterRigidbody = GetComponent<Rigidbody>();
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 		moveInputAction = InputSystem.actions.FindAction("Move");
 		lookInputAction = InputSystem.actions.FindAction("Look");
 		jumpInputAction = InputSystem.actions.FindAction("Jump");
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
 	}
 
 	private void OnEnable()
@@ -55,6 +56,9 @@ public class PlayerMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		if (!IsOwner)
+			return;
+
 		MoveCharacter();
 		GroundCheck();
 		SmoothFall();
@@ -62,6 +66,9 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Update()
 	{
+		if (!IsOwner)
+			return;
+
 		moveInputValue = moveInputAction.ReadValue<Vector2>();
 		lookInputValue = lookInputAction.ReadValue<Vector2>();
 		if (jumpInputAction.WasPressedThisFrame())
@@ -70,8 +77,10 @@ public class PlayerMovement : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		RotateCamera();
+		if (!IsOwner)
+			return;
 
+		RotateCamera();
 	}
 
 	private void MoveCharacter()
@@ -81,21 +90,24 @@ public class PlayerMovement : MonoBehaviour
 		// Move the player when an input is pressed
 		if (moveInputValue.magnitude > 0)
 		{
-			moveDirection = (moveInputValue.y * shoulderTransform.forward + moveInputValue.x * shoulderTransform.right).normalized;
+			moveDirection = (moveInputValue.y * shoulderTransform.forward + moveInputValue.x * shoulderTransform.right);
+			moveDirection.y = 0;
+			moveDirection.Normalize();
 			RotateCharacter(ref moveDirection);
 		}
-
 		// Reduce the player speed when no input is pressed to prevent "sliding"
 		else if (moveInputValue.magnitude <= 0)
 		{
 			if (isGrounded)
+			{
 				moveDirection = -characterRigidbody.linearVelocity;
+				moveDirection.y = 0;
+			}
 			else
 				return;
 		}
 
-		moveDirection.y = 0;
-		characterRigidbody.AddForce(moveDirection * movementSpeed * Time.deltaTime, ForceMode.VelocityChange);		
+		characterRigidbody.AddForce(moveDirection * movementSpeed * Time.deltaTime, ForceMode.VelocityChange);
 	}
 
 	private void RotateCharacter(ref Vector3 rotateDirection)
