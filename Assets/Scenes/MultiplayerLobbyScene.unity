@@ -324,7 +324,7 @@ MonoBehaviour:
     PlayerPrefab: {fileID: 2937749352011257727, guid: edea4dfa83741394e9c95165effd8be6, type: 3}
     Prefabs:
       NetworkPrefabsLists:
-      - {fileID: 11400000, guid: ea3c2425942422f4e9dafc06c5a9d653, type: 2}
+      - {fileID: 11400000, guid: b3dbbde191bcd24458cffac3e264b22e, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -727,6 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b56f4d9bd3c2314bb570b82877e9b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiplayerLobbyManager
+  ShowTopMostFoldoutHeaderGroup: 1
   networkManager: {fileID: 284456101}
   canvas: {fileID: 1068924247}
 --- !u!1 &1711372843
@@ -1221,6 +1222,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1711372846}
   - {fileID: 1068924248}
+  - {fileID: 1348324001}
   - {fileID: 284456102}
   - {fileID: 311960999}
-  - {fileID: 1348324001}

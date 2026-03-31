@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
 
-public class MultiplayerLobbyManager : MonoBehaviour
+public class MultiplayerLobbyManager : NetworkBehaviour
 {
 	[SerializeField] private NetworkManager networkManager;
 	[SerializeField] private GameObject canvas;
