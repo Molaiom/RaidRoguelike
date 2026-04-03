@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
+using System.Collections;
 
 public class MultiplayerLobbyManager : NetworkBehaviour
 {
@@ -9,19 +10,27 @@ public class MultiplayerLobbyManager : NetworkBehaviour
 
 	public void HostGame()
 	{
-		networkManager.StartHost();
-		LoadGameScene();
+		StartCoroutine(HostGameRoutine());
+		IEnumerator HostGameRoutine()
+		{
+			yield return networkManager.StartHost();
+			LoadGameScene();
+		}
 	}
 
 	public void JoinGame()
 	{
-		networkManager.StartClient();
-		LoadGameScene();
+		StartCoroutine(JoinGameRoutine());
+		IEnumerator JoinGameRoutine()
+		{
+			yield return networkManager.StartClient();
+			LoadGameScene();
+		}
 	}
 
 	private void LoadGameScene()
 	{
-		SceneManager.LoadScene(1, LoadSceneMode.Additive);
+		SceneManager.LoadScene(1, LoadSceneMode.Single);
 		canvas.SetActive(false);
 	}
 }
