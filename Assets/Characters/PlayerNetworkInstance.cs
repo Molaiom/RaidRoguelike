@@ -7,6 +7,7 @@ public class PlayerNetworkInstance : NetworkBehaviour
 	[SerializeField] private GameObject cinemachineCamera;
 	[SerializeField] private Camera playerCamera;
 	[SerializeField] private AudioListener playerAudioListener;
+	[SerializeField] private PlayerMovement playerMovementScript;
 	private NetworkObject networkObject;
 
 	private void Awake()
@@ -17,11 +18,12 @@ public class PlayerNetworkInstance : NetworkBehaviour
 	public override void OnNetworkSpawn()
 	{
 		base.OnNetworkSpawn();
-		if (!networkObject.IsLocalPlayer)
+		if (!IsOwner)
 		{
 			cinemachineCamera.SetActive(false);
 			playerCamera.enabled = false;
 			playerAudioListener.enabled = false;
+			playerMovementScript.enabled = false;
 		}
 	}
 }

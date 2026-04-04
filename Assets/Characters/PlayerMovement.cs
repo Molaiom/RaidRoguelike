@@ -56,9 +56,6 @@ public class PlayerMovement : NetworkBehaviour
 
 	private void FixedUpdate()
 	{
-		if (!IsOwner)
-			return;
-
 		MoveCharacter();
 		GroundCheck();
 		SmoothFall();
@@ -66,9 +63,6 @@ public class PlayerMovement : NetworkBehaviour
 
 	private void Update()
 	{
-		if (!IsOwner)
-			return;
-
 		moveInputValue = moveInputAction.ReadValue<Vector2>();
 		lookInputValue = lookInputAction.ReadValue<Vector2>();
 		if (jumpInputAction.WasPressedThisFrame())
@@ -77,9 +71,6 @@ public class PlayerMovement : NetworkBehaviour
 
 	private void LateUpdate()
 	{
-		if (!IsOwner)
-			return;
-
 		RotateCamera();
 	}
 
@@ -93,7 +84,7 @@ public class PlayerMovement : NetworkBehaviour
 			moveDirection = (moveInputValue.y * shoulderTransform.forward + moveInputValue.x * shoulderTransform.right);
 			moveDirection.y = 0;
 			moveDirection.Normalize();
-			RotateCharacter(ref moveDirection);
+			RotateCharacter(moveDirection);
 		}
 		// Reduce the player speed when no input is pressed to prevent "sliding"
 		else if (moveInputValue.magnitude <= 0)
@@ -110,9 +101,11 @@ public class PlayerMovement : NetworkBehaviour
 		characterRigidbody.AddForce(moveDirection * movementSpeed * Time.deltaTime, ForceMode.VelocityChange);
 	}
 
-	private void RotateCharacter(ref Vector3 rotateDirection)
+	private void RotateCharacter(Vector3 rotateDirection)
 	{
 		rotateDirection.y = 0;
+		if (moveInputValue.y < 0)
+			rotateDirection *= -1;
 		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(rotateDirection, Vector3.up), turningSpeed * Time.deltaTime);
 	}
 

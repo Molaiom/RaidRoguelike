@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Unity.Netcode;
 using System.Collections;
 
-public class MultiplayerLobbyManager : NetworkBehaviour
+public class MultiplayerLobbyManager : MonoBehaviour
 {
 	[SerializeField] private NetworkManager networkManager;
 	[SerializeField] private GameObject canvas;
@@ -14,7 +13,7 @@ public class MultiplayerLobbyManager : NetworkBehaviour
 		IEnumerator HostGameRoutine()
 		{
 			yield return networkManager.StartHost();
-			LoadGameScene();
+			canvas.SetActive(false);
 		}
 	}
 
@@ -24,13 +23,7 @@ public class MultiplayerLobbyManager : NetworkBehaviour
 		IEnumerator JoinGameRoutine()
 		{
 			yield return networkManager.StartClient();
-			LoadGameScene();
+			canvas.SetActive(false);
 		}
-	}
-
-	private void LoadGameScene()
-	{
-		SceneManager.LoadScene(1, LoadSceneMode.Single);
-		canvas.SetActive(false);
 	}
 }
