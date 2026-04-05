@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using Unity.Netcode;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMovement : NetworkBehaviour
+public class PlayerController : NetworkBehaviour
 {
 	[SerializeField] private InputActionAsset InputActions;
 	[SerializeField][Range(0, 100)] private float movementSpeed = 40;

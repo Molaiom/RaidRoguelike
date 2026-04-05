@@ -10,6 +10,7 @@
   <Project Path="Unity.Multiplayer.Tools.Common.csproj" />
   <Project Path="Unity.Services.Core.Internal.csproj" />
   <Project Path="Unity.Services.Authentication.PlayerAccounts.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.Multiplayer.Tools.NetStatsMonitor.Configuration.csproj" />
   <Project Path="Unity.Multiplayer.Tools.MetricTypes.csproj" />
   <Project Path="Unity.Timeline.Editor.csproj" />
@@ -69,7 +70,6 @@
   <Project Path="Unity.Multiplayer.Tools.NetVis.Editor.UI.csproj" />
   <Project Path="Unity.Netcode.Editor.csproj" />
   <Project Path="Unity.Multiplayer.Tools.Editor.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.Settings.Editor.csproj" />
   <Project Path="Unity.Multiplayer.Tools.NetworkProfiler.Runtime.csproj" />
   <Project Path="Unity.Multiplayer.Center.NetcodeForGameObjectsExample.csproj" />

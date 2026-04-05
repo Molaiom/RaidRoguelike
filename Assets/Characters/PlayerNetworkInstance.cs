@@ -7,7 +7,7 @@ public class PlayerNetworkInstance : NetworkBehaviour
 	[SerializeField] private GameObject cinemachineCamera;
 	[SerializeField] private Camera playerCamera;
 	[SerializeField] private AudioListener playerAudioListener;
-	[SerializeField] private PlayerMovement playerMovementScript;
+	[SerializeField] private PlayerController playerControllerScript;
 	private NetworkObject networkObject;
 
 	private void Awake()
@@ -23,7 +23,7 @@ public class PlayerNetworkInstance : NetworkBehaviour
 			cinemachineCamera.SetActive(false);
 			playerCamera.enabled = false;
 			playerAudioListener.enabled = false;
-			playerMovementScript.enabled = false;
+			playerControllerScript.enabled = false;
 		}
 	}
 }
