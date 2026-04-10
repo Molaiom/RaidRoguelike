@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(NetworkObject))]
-public class PlayerNetworkInstance : NetworkBehaviour
+public class PlayerNetworkSetup : NetworkBehaviour
 {
 	[SerializeField] private GameObject cinemachineCamera;
 	[SerializeField] private Camera playerCamera;

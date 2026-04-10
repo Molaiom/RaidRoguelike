@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1926617627762445395}
   - component: {fileID: 2798468319701959319}
-  - component: {fileID: -5300620976994135381}
+  - component: {fileID: 2824705497051806304}
   m_Layer: 6
   m_Name: Player Instance
   m_TagString: Player
@@ -186,7 +186,7 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &-5300620976994135381
+--- !u!114 &2824705497051806304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,9 +195,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2937749352011257727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30b6830f2b49e874b86a349f952feacd, type: 3}
+  m_Script: {fileID: 11500000, guid: 978ddf59cce4d704d81b48a68d315588, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerNetworkInstance
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerNetworkSetup
   ShowTopMostFoldoutHeaderGroup: 1
   cinemachineCamera: {fileID: 8417976609351381240}
   playerCamera: {fileID: 8470942708789308899}
