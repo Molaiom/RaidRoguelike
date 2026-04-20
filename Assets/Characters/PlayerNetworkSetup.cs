@@ -1,29 +1,33 @@
 using Unity.Netcode;
 using UnityEngine;
 
-[RequireComponent(typeof(NetworkObject))]
-public class PlayerNetworkSetup : NetworkBehaviour
+namespace Characters
 {
-	[SerializeField] private GameObject cinemachineCamera;
-	[SerializeField] private Camera playerCamera;
-	[SerializeField] private AudioListener playerAudioListener;
-	[SerializeField] private PlayerController playerControllerScript;
-	private NetworkObject networkObject;
-
-	private void Awake()
+	[RequireComponent(typeof(NetworkObject))]
+	public class PlayerNetworkSetup : NetworkBehaviour
 	{
-		networkObject = GetComponent<NetworkObject>();
-	}
+		[Header("Disable on non local players")]
+		[SerializeField] private GameObject cinemachineCamera;
+		[SerializeField] private Camera playerCamera;
+		[SerializeField] private AudioListener playerAudioListener;
+		[SerializeField] private PlayerController playerControllerScript;
+		private NetworkObject networkObject;
 
-	public override void OnNetworkSpawn()
-	{
-		base.OnNetworkSpawn();
-		if (!IsOwner)
+		private void Awake()
 		{
-			cinemachineCamera.SetActive(false);
-			playerCamera.enabled = false;
-			playerAudioListener.enabled = false;
-			playerControllerScript.enabled = false;
+			networkObject = GetComponent<NetworkObject>();
+		}
+
+		public override void OnNetworkSpawn()
+		{
+			base.OnNetworkSpawn();
+			if (!IsOwner)
+			{
+				cinemachineCamera.SetActive(false);
+				playerCamera.enabled = false;
+				playerAudioListener.enabled = false;
+				playerControllerScript.enabled = false;
+			}
 		}
 	}
 }
