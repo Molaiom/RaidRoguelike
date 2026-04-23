@@ -12,6 +12,7 @@ namespace Items
 		[SerializeField] protected ItemType itemType;
 		[SerializeField] protected SkillType[] skillType;
 		[SerializeField] protected TargetingType targetingType;
+		[SerializeField] protected CharacterStats itemStats;
 
 		public abstract void OnUse();
 
@@ -20,5 +21,7 @@ namespace Items
 		public SkillType[] GetSkillType() { return skillType; }
 
 		public TargetingType GetTargetingType() { return targetingType; }
+
+		public CharacterStats GetItemStats() { return itemStats; }
 	}
 }
