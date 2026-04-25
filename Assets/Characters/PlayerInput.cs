@@ -5,7 +5,7 @@ using Unity.Netcode;
 namespace Characters
 {
 	[RequireComponent(typeof(Rigidbody))]
-	public class PlayerController : NetworkBehaviour
+	public class PlayerInput : NetworkBehaviour
 	{
 		#region Attributes
 		[SerializeField] private InputActionAsset InputActions;

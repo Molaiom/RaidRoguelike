@@ -202,7 +202,7 @@ MonoBehaviour:
   cinemachineCamera: {fileID: 8417976609351381240}
   playerCamera: {fileID: 8470942708789308899}
   playerAudioListener: {fileID: 3434341918960484708}
-  playerControllerScript: {fileID: 2190142977304945291}
+  playerInputScript: {fileID: 8769150260084341687}
 --- !u!1 &4747481048449934683
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 723103416826299712}
   - component: {fileID: 2250100053665845626}
   - component: {fileID: 713596670565349212}
-  - component: {fileID: 2190142977304945291}
+  - component: {fileID: 8769150260084341687}
   m_Layer: 6
   m_Name: Player Body
   m_TagString: Player
@@ -516,7 +516,7 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &2190142977304945291
+--- !u!114 &8769150260084341687
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -525,9 +525,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6294170845820104370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb732b14d3e6d9240b0e20cc126d3550, type: 3}
+  m_Script: {fileID: 11500000, guid: 682a2acd13fddcc47ac6e6a17b3e87db, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  m_EditorClassIdentifier: Assembly-CSharp::Characters.PlayerInput
   ShowTopMostFoldoutHeaderGroup: 1
   InputActions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   movementSpeed: 40

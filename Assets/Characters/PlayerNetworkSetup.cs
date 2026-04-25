@@ -10,7 +10,7 @@ namespace Characters
 		[SerializeField] private GameObject cinemachineCamera;
 		[SerializeField] private Camera playerCamera;
 		[SerializeField] private AudioListener playerAudioListener;
-		[SerializeField] private PlayerController playerControllerScript;
+		[SerializeField] private PlayerInput playerInputScript;
 		private NetworkObject networkObject;
 
 		private void Awake()
@@ -26,7 +26,7 @@ namespace Characters
 				cinemachineCamera.SetActive(false);
 				playerCamera.enabled = false;
 				playerAudioListener.enabled = false;
-				playerControllerScript.enabled = false;
+				playerInputScript.enabled = false;
 			}
 		}
 	}
