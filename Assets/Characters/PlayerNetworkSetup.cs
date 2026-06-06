@@ -26,7 +26,10 @@ namespace Characters
 				cinemachineCamera.SetActive(false);
 				playerCamera.enabled = false;
 				playerAudioListener.enabled = false;
-				playerInputScript.enabled = false;
+			}
+			else
+			{
+				playerInputScript.enabled = true;
 			}
 		}
 	}
