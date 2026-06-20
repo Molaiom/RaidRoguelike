@@ -72,6 +72,7 @@ namespace Characters
 			lookInputValue = lookInputAction.ReadValue<Vector2>();
 			if (jumpInputAction.WasPressedThisFrame())
 				Jump();
+			TestMethod(); // TEST METHOD
 		}
 
 		private void LateUpdate()
@@ -148,6 +149,15 @@ namespace Characters
 			// Makes the character fall faster so it doesn't feel "floaty" when jumping
 			if (!isGrounded && characterRigidbody.linearVelocity.y < 0)
 				characterRigidbody.AddForce(Vector3.down * smoothFallForce, ForceMode.Acceleration);
+		}
+
+		private void TestMethod() // THIS IS A TEST METHOD AND WILL BE REMOVED LATER
+		{
+			if (!InputSystem.actions.FindAction("Attack").WasPressedThisFrame())
+				return;
+
+			FindAnyObjectByType<PlaceholderEnemy>().ModifyHealth(-1);
+			Debug.Log("Attack!");
 		}
 		#endregion
 
