@@ -72,7 +72,7 @@ namespace Characters
 			lookInputValue = lookInputAction.ReadValue<Vector2>();
 			if (jumpInputAction.WasPressedThisFrame())
 				Jump();
-			TestMethod(); // TEST METHOD
+			TestMethodRpc(); // TEST METHOD
 		}
 
 		private void LateUpdate()
@@ -151,13 +151,14 @@ namespace Characters
 				characterRigidbody.AddForce(Vector3.down * smoothFallForce, ForceMode.Acceleration);
 		}
 
-		private void TestMethod() // THIS IS A TEST METHOD AND WILL BE REMOVED LATER
+		[Rpc(SendTo.ClientsAndHost)]
+		private void TestMethodRpc() // THIS IS A TEST METHOD AND WILL BE REMOVED LATER
 		{
-			if (!InputSystem.actions.FindAction("Attack").WasPressedThisFrame())
-				return;
-
-			FindAnyObjectByType<PlaceholderEnemy>().ModifyHealth(-1);
-			Debug.Log("Attack!");
+			if (InputSystem.actions.FindAction("Attack").WasPressedThisFrame())
+			{
+				FindAnyObjectByType<PlaceholderEnemy>().ModifyHealth(-1);
+				Debug.Log("Attack!");
+			}
 		}
 		#endregion
 
