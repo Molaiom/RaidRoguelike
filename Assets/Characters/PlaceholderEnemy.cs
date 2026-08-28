@@ -12,7 +12,7 @@ public class PlaceholderEnemy : NetworkBehaviour
 
 	public override void OnNetworkSpawn()
 	{
-		if (IsServer)
+		if (IsHost)
 		{
 			currentHealth.Value = maxHealth;
 			NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
@@ -21,7 +21,7 @@ public class PlaceholderEnemy : NetworkBehaviour
 		{
 			Debug.Log($"Enemy Health is {currentHealth.Value} when spawned.");
 		}
-		currentHealth.OnValueChanged += UpdateHealthBar;
+		currentHealth.OnValueChanged += UpdateHealthBarRpc;
 	}
 
 	public override void OnNetworkDespawn()
@@ -42,11 +42,12 @@ public class PlaceholderEnemy : NetworkBehaviour
 
 	private void OnClientConnectedCallback(ulong obj)
 	{
-		UpdateHealthBar(maxHealth, currentHealth.Value);
+		UpdateHealthBarRpc(maxHealth, currentHealth.Value);
 		NetworkManager.OnClientConnectedCallback -= OnClientConnectedCallback;
 	}
 
-	private void UpdateHealthBar(int previousValue, int newValue)
+	[Rpc(SendTo.Everyone)]
+	private void UpdateHealthBarRpc(int previousValue, int newValue)
 	{
 		healthBarImg.fillAmount = (float)newValue / maxHealth;
 		Debug.Log($"Health changed! from: {previousValue} to {newValue}!");

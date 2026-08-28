@@ -151,7 +151,7 @@ namespace Characters
 				characterRigidbody.AddForce(Vector3.down * smoothFallForce, ForceMode.Acceleration);
 		}
 
-		[Rpc(SendTo.ClientsAndHost)]
+		[Rpc(SendTo.Server)]
 		private void TestMethodRpc() // THIS IS A TEST METHOD AND WILL BE REMOVED LATER
 		{
 			if (InputSystem.actions.FindAction("Attack").WasPressedThisFrame())
